@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.optimagrowth</groupId>
 	<artifactId>licensing-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>Licensing service</name>
 	<description>Ostock Licensing service</description>
 	<url/>
@@ -60,7 +60,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2023.0.3</version> <!-- 또는 프로젝트에서 사용하는 Spring Cloud 버전 -->
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -72,7 +98,7 @@
 						<enabled>true</enabled>
 					</layers>
 					<image>
-						<name>${docker.image.prefix}/${project.artifactId}:latest</name>
+						<name>${docker.image.prefix}/${project.artifactId}:${project.version}</name>
 					</image>
 					<excludes>
 						<exclude>

@@ -1,16 +1,16 @@
 version: '3.7'
 services:
   licensingservice:
-    image: ostock/licensing-service:latest
+    image: ostock/licensing-service:0.0.2-SNAPSHOT
     ports:
       - "8080:8080"
     environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071
     networks:
-      backend:
-        aliases:
-            - "licenseservice"
+      - backend
 
 networks:
   backend:
     driver: bridge
+    name: backend

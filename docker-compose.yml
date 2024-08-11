@@ -1,25 +1,27 @@
-version: '3.7'
-services:
-  licensingservice:
-    image: ostock/licensing-service:latest
-    ports:
-      - "8080:8080"
-    environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
-    networks:
-      backend:
-        aliases:
-          - "licenseservice"
+version: '3.8'
 
-  configserver:
-    image: configserver/configserver:latest
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
     ports:
-      - 8071:8071
+      - "5432:5432"  # PostgreSQL 기본 포트
+    environment:
+      POSTGRES_DB: ostock_dev      # 생성할 기본 데이터베이스 이름
+      POSTGRES_USER: postgres        # PostgreSQL 사용자 이름
+      POSTGRES_PASSWORD: postgres # PostgreSQL 사용자 비밀번호
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data # 데이터 지속성을 위한 볼륨
     networks:
       backend:
         aliases:
-          - "configserver"
+          - "database"
 
 networks:
   backend:
     driver: bridge
+    name: backend
+
+# volumes:
+#   postgres_data:
+#     driver: local
