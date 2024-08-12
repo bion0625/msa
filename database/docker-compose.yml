@@ -1,7 +1,7 @@
-version: '3.8'
+#version: '3.8'
 
 services:
-  postgres:
+  database:
     image: postgres:15
     container_name: postgres_db
     ports:
@@ -10,8 +10,9 @@ services:
       POSTGRES_DB: ostock_dev      # 생성할 기본 데이터베이스 이름
       POSTGRES_USER: postgres        # PostgreSQL 사용자 이름
       POSTGRES_PASSWORD: postgres # PostgreSQL 사용자 비밀번호
-    # volumes:
-    #   - postgres_data:/var/lib/postgresql/data # 데이터 지속성을 위한 볼륨
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # 데이터 지속성을 위한 볼륨
+      - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
     networks:
       backend:
         aliases:
@@ -22,6 +23,6 @@ networks:
     driver: bridge
     name: backend
 
-# volumes:
-#   postgres_data:
-#     driver: local
+volumes:
+   postgres_data:
+     driver: local
