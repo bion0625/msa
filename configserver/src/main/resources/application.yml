@@ -2,7 +2,7 @@ spring:
   application:
     name: config-server
   profiles:
-    active: native
+    active: native, git
   cloud:
     config:
       server:
@@ -11,9 +11,13 @@ spring:
           # 특정 파일 시스템에서 폴더를 읽어 온다.
           #          search-locations: file:///Users/illary.huaylupo
           search-locations: classpath:/config
+        git:
+          uri: https://github.com/bion0625/msa
+          search-paths: licensingservice
+          default-label: config
     # 파일 서버에서는 리프레시가 안 되는 걸로 보임
     refresh:
-      enabled: false
+      enabled: true
 
 server:
   port: 8071
