@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  licensingservice:
+    image: eurekaserver/eurekaserver:0.0.1-SNAPSHOT
+    ports:
+      - "8070:8070"
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+    name: backend
